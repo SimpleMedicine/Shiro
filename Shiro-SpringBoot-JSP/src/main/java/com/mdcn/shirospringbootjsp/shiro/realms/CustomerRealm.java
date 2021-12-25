@@ -1,11 +1,9 @@
 package com.mdcn.shirospringbootjsp.shiro.realms;
 
 import com.mdcn.shirospringbootjsp.entity.Perms;
-import com.mdcn.shirospringbootjsp.entity.Role;
 import com.mdcn.shirospringbootjsp.entity.User;
 import com.mdcn.shirospringbootjsp.service.UserService;
 import com.mdcn.shirospringbootjsp.shiro.util.MyByteSource;
-import com.mdcn.shirospringbootjsp.utils.ApplicationContextUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,10 +12,8 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
@@ -62,10 +58,6 @@ public class CustomerRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         // 获取身份信息
         String principal = (String) token.getPrincipal();
-
-//        // 从Spring容器中手动获取Service对象
-//        UserService userService = (UserService) ApplicationContextUtils.getBean("userService");
-
         // 在数据库中查询用户验证信息是否正确
         User user = userService.findByUserName(principal);
         // user != null
